@@ -1,0 +1,30 @@
+# Configure Interface to connect to Internet Exchange 
+ ifconfig eth1 15.212.76.100 netmask 255.255.255.254 up   
+
+# Configure Interface to connect to Milan Gateway Router
+ifconfig eth2 15.212.76.96 netmask 255.255.255.254 up
+
+
+# Enable physical Interfaces 
+ifconfig eth0 up
+ifconfig eth3 up
+
+#Add a tag sub-interfaces for Vlans 100 and 200
+vconfig add eth3 100 
+vconfig add eth0 200 
+ifconfig eth3.100 up
+ifconfig eth0.200 up 
+
+# Provide Interace Addresses and bring up the Interfaces 
+
+ifconfig  eth3.100 192.168.0.1 netmask 255.255.255.240 up
+ifconfig  eth0.200 15.212.76.1 netmask 255.255.255.192 up
+
+# Configure IP route Table 
+ip route add 15.212.76.64/27 via 15.212.76.97
+ip route add 15.212.76.98/31 via 15.212.76.97
+ip route add default via 15.212.76.101
+
+
+
+

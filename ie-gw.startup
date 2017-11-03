@@ -1,0 +1,16 @@
+# Configure Interface to connect to Rome Router 
+ifconfig eth1 15.212.76.101 netmask 255.255.255.254 up
+
+#Configure Interface to Connect to Milan  
+ifconfig eth0 15.212.76.99 netmask 255.255.255.254 up
+
+# Configure Interace to Connect to Internet 
+
+
+# Configure routes to Ip table 
+ip route add 15.212.76.64/27 via 15.212.76.98
+ip route add 15.212.76.96/31 via 15.212.76.100
+ip route add 15.212.76.0/26  via 15.212.76.100
+
+
+

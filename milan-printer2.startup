@@ -1,0 +1,10 @@
+# Milan Printers' Configuration 
+
+ifconfig eth0 up                                          # Bring up physical configuration
+vconfig add eth0 300                                      # Enable Vlan on interface
+ifconfig eth0.300 up                                      # Bring up a Virtual interface
+ifconfig eth0 hw ether 00:02:10:02:10:00                  # Assign HW Address to interfaces
+ifconfig eth0.300 10.10.10.4 netmask 255.255.255.240 up   # Assign IP Address to virtual interface 
+route add default gw 10.10.10.1                           # Assign a Default gateway
+
+

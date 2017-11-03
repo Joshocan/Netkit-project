@@ -1,0 +1,29 @@
+
+# Configure Interface to connect to Internet Exchange 
+ifconfig eth2 15.212.76.98 netmask 255.255.255.254 up
+
+# Configure Interface to connect to Rome Gateway Router
+ifconfig eth0 15.212.76.97 netmask 255.255.255.254 up
+
+
+# Enable physical Interfaces 
+ifconfig eth1 up
+ifconfig eth3 up
+
+#Add a tag sub-interfaces for Vlans 300 and 400 
+vconfig add eth3 300
+vconfig add eth1 400
+ifconfig eth3.300 up
+ifconfig eth1.400 up
+
+# Provide Interace Addresses and bring up the Interfaces 
+
+ifconfig  eth3.300 10.10.10.1 netmask 255.255.255.240 up
+ifconfig  eth1.400 15.212.76.65 netmask 255.255.255.224 up
+
+# Configure IP Default route 
+ip route add 15.212.76.0/26 via 15.212.76.96 
+ip route add 15.212.76.100/31 via 15.212.76.96
+ip route add default via 15.212.76.99
+
+

@@ -1,0 +1,10 @@
+
+# Milan PC User Configuration
+
+ifconfig eth0 up                                           # Bring up physical interface
+vconfig add eth0 400                                       # Enable Vlan on interface
+ifconfig eth0.400 up                                       # Bring up Virtual interface 
+ifconfig eth0 hw ether 00:02:10:00:10:10                   # Assign a HW Address to interface
+ifconfig eth0.400 15.212.76.66 netmask 255.255.255.224 up  # Assign IP Address to virtual interface
+route add default gw 15.212.76.65                          # assign a default Gateway
+

@@ -1,0 +1,59 @@
+
+# Create HW Address for Physical Interfaces
+/sbin/ifconfig eth0 hw ether 00:00:00:00:01:10                     #  switch 1 port 0
+/sbin/ifconfig eth1 hw ether 00:00:00:00:01:01                     #  switch 1 port 1
+/sbin/ifconfig eth2 hw ether 00:10:00:00:01:02                     #  switch 1 port 2
+/sbin/ifconfig eth3 hw ether 00:01:01:10:01:02                     #  switch 1 port 3
+/sbin/ifconfig eth4 hw ether 00:11:00:00:01:02                     #  switch 1 port 4
+/sbin/ifconfig eth5 hw ether 00:01:00:00:00:02                     #  switch 1 port 5
+
+#Bring up Physical Interfaces
+ifconfig eth0 up 
+ifconfig eth1 up 
+ifconfig eth2 up 
+ifconfig eth3 up
+ifconfig eth4 up
+ifconfig eth5 up
+
+# Enable Vlans 
+vconfig add eth0 400
+vconfig add eth3 300
+vconfig add eth1 300
+vconfig add eth4 400
+vconfig add eth5 300
+vconfig add eth2 400
+
+# Bring up Virtual Vlan Interfaces
+ifconfig eth0.400 up
+ifconfig eth1.300 up
+ifconfig eth3.300 up 
+ifconfig eth4.400 up
+ifconfig eth2.400 up
+ifconfig eth5.300 up
+
+# Create Vlan bridges 
+brctl addbr vlan300
+brctl addbr vlan400
+
+# Assign Interaces to Vlans 
+brctl addif vlan300 eth1
+brctl addif vlan400 eth4
+brctl addif vlan400 eth0
+brctl addif vlan300 eth3
+brctl addif vlan300 eth5
+brctl addif vlan400 eth2
+
+# Create Virtual Interfaces with Vlans 
+brctl addif vlan400 eth0.400
+brctl addif vlan300 eth1.300
+brctl addif vlan300 eth3.300
+brctl addif vlan400 eth4.400
+brctl addif vlan400 eth2.400
+brctl addif vlan300 eth5.300
+
+# Configure Addresses for Vlan and bring the Interfaces up
+ifconfig vlan300 10.10.10.10 netmask 255.255.255.240 up 
+ifconfig vlan400 15.212.76.70 netmask 255.255.255.224 up 
+ 
+
+

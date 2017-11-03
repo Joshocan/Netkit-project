@@ -1,0 +1,10 @@
+
+# User PC Configuration 
+
+ifconfig eth0 up                                             # Bring up physical interface
+vconfig add eth0 200                                         # Enable Vlan on interface
+ifconfig eth0.200 up                                         # Assign a virtual interface and bring it up 
+ifconfig eth0 hw ether 00:00:20:00:10:00                     # Assign a HW address to the interface
+ifconfig eth0.200 15.212.76.4 netmask 255.255.255.192 up     # Assign IP Address to the virtual interface
+route add default gw 15.212.76.1                             # Assign a default gateway
+
